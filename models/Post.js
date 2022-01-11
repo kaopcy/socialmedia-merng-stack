@@ -23,4 +23,10 @@ const postSchema = new Schema({
     }
 })
 
+/*
+    * The first arguments of model take Model name ,
+    * so mongoose will modify this name to plural form and lowercase .
+    * For example, Post will be posts collection 
+*/
+
 module.exports = model('Post' , postSchema);

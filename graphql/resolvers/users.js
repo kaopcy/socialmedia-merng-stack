@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserInputError } = require("apollo-server");
+const { getDateTime } = require('../../utils/accessories')
 
 const {
     validateRegisterInput,
@@ -78,7 +79,7 @@ module.exports = {
                 password,
                 firstname,
                 lastname,
-                createdAt: new Date().toISOString(),
+                createdAt: getDateTime()
             });
 
             const res = await newUser.save();
