@@ -1,9 +1,7 @@
-const { AuthenticationError } = require("apollo-server");
-const User = require("../../models/User");
+const { AuthenticationError, UserInputError } = require("apollo-server");
 const Post = require("../../models/Post");
 const { checkAuth } = require("../../utils/check-auth");
 const { getDateTime } = require("../../utils/accessories");
-const { Types } = require('mongoose')
 module.exports = {
     Query: {
         getPosts: async () => {
@@ -69,5 +67,27 @@ module.exports = {
                 throw new Error(error);
             }
         },
+
+        likePost: async (_, { postID }, { req }) => {
+            try {
+                const { username } = checkAuth(req)
+                const post = await Post.findById(postID)
+                if (!post) throw new UserInputError('Post is not exist')
+
+                const likeIndex = post.likes.findIndex(e => e.username === username)
+                if (likeIndex != -1) {
+                    post.likes.splice(likeIndex, 1)
+                } else {
+                    post.likes.unshift({
+                        username,
+                        createdAt: getDateTime()
+                    })
+                } 
+                await post.save()
+                return post
+            } catch (error) {
+                throw new Error(error)
+            }
+        }
     },
 };
