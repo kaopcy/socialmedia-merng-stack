@@ -4,11 +4,12 @@ import gsap, { Expo } from "gsap";
 const logos = [
     {
         name: "TASK",
+        backgroundImage: "linear-gradient(to bottom right, #b1359d , #3b82f6",
     },
     {
         name: "VOCAB",
+        backgroundImage: "linear-gradient(to top right, #e86e47 , #b1359d",
     },
-    
 ];
 
 const AnimateLogo = () => {
@@ -37,6 +38,10 @@ const AnimateLogo = () => {
         logos.forEach(() => {
             tl.add(run);
         });
+
+        return () => {
+            tl.kill();
+        };
     }, []);
 
     return (
@@ -46,13 +51,16 @@ const AnimateLogo = () => {
         >
             <div
                 className="absolute top-0 left-0 w-11 -translate-y-1/2"
-                style={{ height: `calc(${height}px*${logos.length})`  }}
+                style={{ height: `calc(${height}px*${logos.length})` }}
             >
                 {logos.map((logo) => (
                     <div
                         key={logo.name}
                         className="absolute logo-name font-bold text-gray-900 leading-none tracking-wide text-transparent bg-clip-text"
-                        style={{ backgroundImage: "linear-gradient(to bottom right, #9333ea , #3b82f6" , fontSize: `${height * 83 / 100}px` }}
+                        style={{
+                            backgroundImage: logo.backgroundImage,
+                            fontSize: `${(height * 83) / 100}px`,
+                        }}
                     >
                         {logo.name}
                     </div>

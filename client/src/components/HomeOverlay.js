@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const HomeOverlay = ({ finishOverlay }) => {
-    useEffect(()=>{
-        console.log(finishOverlay);
-    }, [finishOverlay])
+    
     return finishOverlay ? (
         null
     ) : (

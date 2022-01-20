@@ -4,7 +4,11 @@ import gsap from "gsap";
 // import { isMobile } from 'react-device-detect'
 
 import Home from "./views/Home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
+import Post from "./views/Post/Post";
+import Feed from "./views/Post/Feed";
+import Friend from "./views/Post/Friend";
+
 import "./App.css";
 
 const App = () => {
@@ -17,6 +21,11 @@ const App = () => {
             <Navbar />
             <Routes>
                 <Route path={"/"} element={<Home />} />
+                <Route path={"/post"} element={<Post />} >
+                    <Route index element={<Feed/>} />
+                    <Route path={'feed'} element={<Feed/>} />
+                    <Route path={'friend'} element={<Friend/>} />
+                </Route>
             </Routes>
         </>
     );

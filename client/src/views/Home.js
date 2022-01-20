@@ -119,6 +119,10 @@ const Home = () => {
                 onComplete: () => setFinishOverlay(true),
             });
         }
+        return ()=>{
+            tl.kill()
+            setFinishOverlay(false);
+        }
     }, [preloader]);
 
     return preloader ? (
